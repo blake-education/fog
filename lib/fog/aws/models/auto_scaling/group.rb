@@ -24,19 +24,22 @@ module Fog
         attribute :termination_policies,      :aliases => 'TerminationPolicies'
         attribute :vpc_zone_identifier,       :aliases => 'VPCZoneIdentifier'
 
-        def initialize(attributes={})
-          attributes['DefaultCooldown'] ||= 300
-          attributes['DesiredCapacity'] ||= 0
-          attributes['EnabledMetrics'] ||= []
-          attributes['HealthCheckGracePeriod'] ||= 0
-          attributes['HealthCheckType'] ||= 'EC2'
-          attributes['Instances'] ||= []
-          attributes['LoadBalancerNames'] ||= []
-          attributes['MaxSize'] ||= 0
-          attributes['MinSize'] ||= 0
-          attributes['SuspendedProcesses'] ||= []
-          attributes['Tags'] ||= []
-          attributes['TerminationPolicies'] ||= ['Default']
+        def initialize(new_attributes={})
+          # set defaults, which may be overridden in super
+          merge_attributes(
+            :default_cooldown => 300,
+            :desired_capacity => 0,
+            :enabled_metrics => [],
+            :health_check_grace_period => 0,
+            :health_check_type => 'EC2',
+            :instances => [],
+            :load_balancer_names => [],
+            :max_size => 0,
+            :min_size => 0,
+            :suspended_processes => [],
+            :tags => [],
+            :termination_policies => ['Default'])
+
           super
         end
 
