@@ -37,7 +37,7 @@ module Fog
         end
 
         def healthy?
-          health_status == 'HEALTHY'
+          health_status == 'Healthy'
         end
 
         def ready?
