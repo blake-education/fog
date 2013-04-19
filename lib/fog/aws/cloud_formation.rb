@@ -11,6 +11,8 @@ module Fog
       model_path 'fog/aws/models/cloud_formation'
       model       :stack
       collection  :stacks
+      model       :resource
+      collection  :resources
 
       request_path 'fog/aws/requests/cloud_formation'
       request :create_stack

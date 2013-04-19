@@ -20,6 +20,12 @@ module Fog
         attribute :stack_status_reason , :aliases => 'StackStatusReason'
         attribute :tags                , :aliases => 'Tags'
         attribute :timeout_in_minutes  , :aliases => 'TimeoutInMinutes'  , :type => :integer
+
+
+        def resources
+          requires :id
+          service.resources.all("StackName" => id)
+        end
       end
     end
   end
