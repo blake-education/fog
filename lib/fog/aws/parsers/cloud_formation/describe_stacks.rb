@@ -6,10 +6,11 @@ module Fog
         class DescribeStacks < Fog::Parsers::Base
 
           def reset
-            @stack = { 'Outputs' => [], 'Parameters' => [], 'Capabilities' => [] }
+            @stack = { 'Outputs' => [], 'Parameters' => [], 'Capabilities' => [], 'Tags' => {} }
             @output = {}
             @parameter = {}
             @response = { 'Stacks' => [] }
+            @tag = {}
           end
 
           def start_element(name, attrs = [])
@@ -56,7 +57,7 @@ module Fog
               case name
               when 'member'
                 @response['Stacks'] << @stack
-                @stack = { 'Outputs' => [], 'Parameters' => [], 'Capabilities' => []}
+                @stack = { 'Outputs' => [], 'Parameters' => [], 'Capabilities' => [], 'Tags' => {} }
               when 'RequestId'
                 @response[name] = value
               when 'CreationTime'
@@ -70,6 +71,11 @@ module Fog
                 end
               when 'StackName', 'StackId', 'StackStatus'
                 @stack[name] = value
+              when 'Tag'
+                @stack['Tags'][@tag['Key']] = @tag['Value']
+                @tag = {}
+              when 'Key', 'Value'
+                @tag[name] = value
               end
             end
           end

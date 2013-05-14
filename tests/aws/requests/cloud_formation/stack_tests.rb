@@ -49,6 +49,7 @@ Shindo.tests('AWS::CloudFormation | stack requests', ['aws', 'cloudformation']) 
         'StackId'         => String,
         'StackName'       => String,
         'StackStatus'     => String,
+        'Tags'            => Hash
       }
     ]
   }
